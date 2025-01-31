@@ -24,7 +24,6 @@ public partial class Unit : Area2D
         );
         Vector2 size = new Vector2(32, 32);
         skin.SetRegionRect(new Rect2(pos, size));
-        GD.Print(skin.RegionRect);
     }
 
     Sprite2D skin;
