@@ -12,7 +12,7 @@ public partial class DragAndDrop : Node
     private Vector2 _startingPosition;
     // So there is jump from where you clicked the unit and the GlobalPosition of the unit which is the top left
     private Vector2 _offset;
-    private bool _dragging;
+    public bool _dragging;
 
     public override void _Ready()
     {
