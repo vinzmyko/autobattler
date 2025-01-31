@@ -26,13 +26,23 @@ public partial class Unit : Area2D
         skin.SetRegionRect(new Rect2(pos, size));
     }
 
+    [Export] public Node OutlineHighlighterComponent;
+    [Export] public Node DragAndDropComponent;
+    [Export] public Node VelocityBasedRotationComponent;
+
     Sprite2D skin;
     ProgressBar health_bar;
     ProgressBar mana_bar;
 
     public override async void _Ready()
     {
-        skin = GetNode<Sprite2D>("Skin");
+        MouseEntered += OnMouseEntered;
+        MouseExited += OnMouseExited;
+
+        (DragAndDropComponent as DragAndDrop).DragStarted += OnDragStarted;
+        (DragAndDropComponent as DragAndDrop).DragCancelled += OnDragCancelled;
+
+        skin = GetNode<CanvasGroup>("Visuals").GetNode<Sprite2D>("Skin");
         health_bar = GetNode<ProgressBar>("HealthBar");
         mana_bar = GetNode<ProgressBar>("ManaBar");
 
@@ -40,5 +50,40 @@ public partial class Unit : Area2D
         {
             await UpdateStatsAsync(stats);
         }
+    }
+
+    private void OnDragStarted()
+    {
+        (VelocityBasedRotationComponent as VelocityBasedRotation).Enabled = true;
+    }
+
+    private void OnDragCancelled(Vector2 startingPosition)
+    {
+        ResetAfterDragging(startingPosition);
+    }
+
+    public void ResetAfterDragging(Vector2 startingPosition)
+    {
+        (VelocityBasedRotationComponent as VelocityBasedRotation).Enabled = false;
+        GlobalPosition = startingPosition;
+    }
+
+    private void OnMouseEntered()
+    {
+        if (OutlineHighlighterComponent == null) GD.PushError("Unit does not have OutlineHighlighter assigned");
+
+        if ((DragAndDropComponent as DragAndDrop)._dragging) return;
+
+        (OutlineHighlighterComponent as OutlineHighlighter).SetHighlight();
+        ZIndex = 1;
+    }
+    private void OnMouseExited()
+    {
+        if (OutlineHighlighterComponent == null) GD.PushError("Unit does not have OutlineHighlighter assigned");
+
+        if ((DragAndDropComponent as DragAndDrop)._dragging) return;
+
+        (OutlineHighlighterComponent as OutlineHighlighter).ClearHighlight();
+        ZIndex = 0;
     }
 }
