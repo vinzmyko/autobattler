@@ -32,16 +32,17 @@ public partial class DragAndDrop : Node
         }
     }
 
-    // The InputEvent.OnTargetInputEvent doesn't seem to work with keyboard clicks so overriding in the _Input function
-    // Could interfere if you have escape key bound to pause so if you want to have escape to also cancel drag keep it in and
-    // find a solution
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (_dragging && Target != null && @event.IsActionPressed("cancel_drag"))
-    //     {
-    //         CancelDragging();
-    //     }
-    // }
+    public override void _Input(InputEvent @event)
+    {
+        if (_dragging && @event.IsActionPressed("cancel_drag"))
+        {
+            CancelDragging();
+        }
+        else if (_dragging && @event.IsActionPressed("select"))
+        {
+            Drop();
+        }
+    }
 
     private void EndDragging()
     {
@@ -82,17 +83,9 @@ public partial class DragAndDrop : Node
 
         if (!_dragging && draggingObject != null) return;
 
-        if (_dragging && @event.IsActionPressed("cancel_drag"))
-        {
-            CancelDragging();
-        }
-        else if (!_dragging && @event.IsActionPressed("select"))
+        if (!_dragging && @event.IsActionPressed("select"))
         {
             StartDragging();
-        }
-        else if (_dragging && @event.IsActionPressed("select"))
-        {
-            Drop();
         }
     }
 }
