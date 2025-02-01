@@ -16,7 +16,7 @@ public partial class VelocityBasedRotation : Node
     } 
     [Export] public Node2D Target;
     [Export(PropertyHint.Range, "0.25, 1.25")] public float LerpSeconds = 0.4f;
-    [Export] public int RotationMultiplier = 120;
+    [Export] public int MaxRotationDegrees = 50;
     [Export] public float XVelocityThreshold = 3.0f;
 
     private Vector2 _lastPostion;
@@ -25,7 +25,7 @@ public partial class VelocityBasedRotation : Node
     private float _progress;
     private float _timeElapsed = 0.0f;
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!Enabled || Target == null) return;
 
@@ -35,7 +35,7 @@ public partial class VelocityBasedRotation : Node
     
         if (Math.Abs(_velocity.X) > XVelocityThreshold)
         {
-            _angle = _velocity.Normalized().X * RotationMultiplier * (float)delta;
+            _angle = _velocity.Normalized().X * Mathf.DegToRad(MaxRotationDegrees);
         }
         else { _angle = 0.0f; }
 
