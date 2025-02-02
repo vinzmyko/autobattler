@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class UnitGrid : Node
 {
@@ -25,6 +24,16 @@ public partial class UnitGrid : Node
     public void AddUnit(Vector2I tile, Node unit)
     {
         Units[tile] = unit;
+        EmitSignal(SignalName.UnitGridChanged);
+    }
+
+    public void RemoveUnit(Vector2I tile)
+    {
+        Node unit = Units[tile];
+
+        if (unit == null) return;
+
+        Units[tile] = null;
         EmitSignal(SignalName.UnitGridChanged);
     }
 
@@ -52,13 +61,16 @@ public partial class UnitGrid : Node
         throw new InvalidOperationException("No empty tiles found");
     }
 
-    public List<Node> GetAllUnits()
+    public Godot.Collections.Array<Unit> GetAllUnits()
     {
-        List<Node> numberOfUnits = new List<Node>();
-
-        foreach (KeyValuePair<Vector2I, Node> pair in Units)
+        Godot.Collections.Array<Unit> numberOfUnits = new Godot.Collections.Array<Unit>();
+        
+        foreach (var unit in Units)
         {
-            if (pair.Value != null) { numberOfUnits.Append(pair.Value); }
+            if (unit.Value != null)
+            {
+                numberOfUnits.Add((unit.Value) as Unit);
+            }
         }
 
         return numberOfUnits;
