@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://c1ndoehfbue4s"]
+
+[ext_resource type="Script" path="res://data/units/UnitStats.cs" id="1_4trvh"]
+
+[resource]
+script = ExtResource("1_4trvh")
+name = "Lucius"
+rarity = 0
+gold_cost = 0
+skin_coordinates = Vector2i(3, 4)
