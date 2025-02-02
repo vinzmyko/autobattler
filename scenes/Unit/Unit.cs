@@ -26,9 +26,9 @@ public partial class Unit : Area2D
         skin.SetRegionRect(new Rect2(pos, size));
     }
 
-    [Export] public Node OutlineHighlighterComponent;
-    [Export] public Node DragAndDropComponent;
-    [Export] public Node VelocityBasedRotationComponent;
+    [Export] public OutlineHighlighter OutlineHighlighterComponent;
+    [Export] public DragAndDrop DragAndDropComponent;
+    [Export] public VelocityBasedRotation VelocityBasedRotationComponent;
 
     Sprite2D skin;
     ProgressBar health_bar;
