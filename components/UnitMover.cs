@@ -29,8 +29,6 @@ public partial class UnitMover : Node
 
         int i = GetPlayAreaForPosition(unit.GlobalPosition);
 
-        GD.Print($"Dragging from {PlayAreas[i].Name}, Units - {PlayAreas[i].GridService.GetAllUnits()}");
-
         if (i > -1)
         {
             var tile = PlayAreas[i].GetTileFromGlobal(unit.GlobalPosition);
