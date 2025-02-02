@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://gbr34gikc6t5"]
+[gd_scene load_steps=13 format=4 uid="uid://gbr34gikc6t5"]
 
 [ext_resource type="Script" path="res://scenes/arena/Arena.cs" id="1_4aywj"]
 [ext_resource type="TileSet" uid="uid://yl61550lylpr" path="res://scenes/arena/tileset.tres" id="2_t3xaw"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://components/UnitGrid.cs" id="4_exreg"]
 [ext_resource type="Script" path="res://components/PlayArea.cs" id="4_wa1fd"]
 [ext_resource type="Script" path="res://components/TileHighLighter.cs" id="6_4tnkl"]
+[ext_resource type="PackedScene" uid="uid://clme0tknt3sej" path="res://scenes/Unit/Unit.tscn" id="7_qgm8m"]
+[ext_resource type="Resource" uid="uid://c1ndoehfbue4s" path="res://data/units/lucius.tres" id="8_lkpa2"]
+[ext_resource type="Script" path="res://components/UnitMover.cs" id="8_y0rk8"]
 
 [sub_resource type="Curve" id="Curve_2vywm"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194313, 1), 0.0, 0.0, 0, 0, Vector2(0.85782, 0.989011), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -58,12 +61,13 @@ process_material = SubResource("ParticleProcessMaterial_4dnsh")
 texture = ExtResource("3_vv3wb")
 lifetime = 6.0
 
-[node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("GridService")]
+[node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("GridService", "TileHighlightService")]
 position = Vector2(160, 32)
 tile_map_data = PackedByteArray("AAAAAAEAAAAAAAwAAAABAAAAAAACAAwAAAABAAIAAAABAAwAAAAAAAMAAAAAAAwAAAABAAQAAAAAAAwAAAAAAAUAAAADAAwAAAABAAYAAAABAAwAAAACAAEAAAAAAAwAAAACAAMAAAAAAAwAAAACAAUAAAAAAAwAAAADAAAAAAAAAAwAAAADAAIAAAAAAAwAAAADAAQAAAAAAAwAAAADAAYAAAACAAwAAAAEAAEAAAAAAAwAAAAEAAMAAAACAAwAAAAEAAUAAAADAAwAAAAFAAAAAAABAAwAAAAFAAIAAAAAAAwAAAAFAAQAAAAAAAwAAAAFAAYAAAAAAAwAAAAGAAEAAAAAAAwAAAAGAAMAAAAAAAwAAAAGAAUAAAABAAwAAAAHAAAAAAAAAAwAAAAHAAIAAAAAAAwAAAAHAAQAAAAAAAwAAAAHAAYAAAAAAAwAAAAIAAEAAAACAAwAAAAIAAMAAAACAAwAAAAIAAUAAAAAAAwAAAAJAAAAAAAAAAwAAAAJAAIAAAABAAwAAAAJAAQAAAAAAAwAAAAJAAYAAAABAAwAAAA=")
 tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_wa1fd")
 GridService = NodePath("ArenaUnitGrid")
+TileHighlightService = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -79,18 +83,23 @@ tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_exreg")
 Size = Vector2i(4, 7)
 
+[node name="Unit2" parent="GameArea/ArenaUnitGrid" instance=ExtResource("7_qgm8m")]
+stats = ExtResource("8_lkpa2")
+
 [node name="TileHighlighter" type="Node" parent="GameArea" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
+Enabled = false
 AreaService = NodePath("..")
 HighlightLayer = NodePath("../HighLight")
 Tile = Vector2i(3, 0)
 
-[node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("GridService")]
+[node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("GridService", "TileHighlightService")]
 position = Vector2(160, 320)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAsAAAABAAAAAAAAAAcAAAACAAAAAAAAAAsAAAADAAAAAAAAAAcAAAAEAAAAAAAAAAsAAAAFAAAAAAAAAAcAAAAGAAAAAAAAAAsAAAAHAAAAAAAAAAcAAAAIAAAAAAAAAAsAAAAJAAAAAAAAAAcAAAA=")
 tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_wa1fd")
 GridService = NodePath("BenchUnitGrid")
+TileHighlightService = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -101,8 +110,15 @@ tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_exreg")
 Size = Vector2i(10, 1)
 
+[node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("7_qgm8m")]
+
 [node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
+Enabled = false
 AreaService = NodePath("..")
 HighlightLayer = NodePath("../HighLight")
 Tile = Vector2i(3, 0)
+
+[node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("PlayAreas")]
+script = ExtResource("8_y0rk8")
+PlayAreas = [NodePath("../GameArea"), NodePath("../Bench")]

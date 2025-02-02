@@ -3,6 +3,7 @@ using Godot;
 public partial class PlayArea : TileMapLayer
 {
     [Export] public UnitGrid GridService;
+    [Export] public TileHighLighter TileHighlightService;
 
     private Rect2I _bounds;
 
