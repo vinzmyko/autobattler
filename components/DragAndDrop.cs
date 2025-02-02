@@ -38,7 +38,7 @@ public partial class DragAndDrop : Node
         {
             CancelDragging();
         }
-        else if (_dragging && @event.IsActionPressed("select"))
+        else if (_dragging && @event.IsActionReleased("select"))
         {
             Drop();
         }
