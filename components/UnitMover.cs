@@ -10,6 +10,9 @@ public partial class UnitMover : Node
         foreach (Unit unit in units)
         {
             SetupUnit(unit);
+            int playAreaIndex = GetPlayAreaForPosition(unit.GlobalPosition);
+            var tile = PlayAreas[playAreaIndex].GetTileFromGlobal(unit.GlobalPosition);
+            PlayAreas[playAreaIndex].GridService.AddUnit(tile, unit);
         }
     }
 
