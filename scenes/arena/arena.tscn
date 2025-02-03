@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://gbr34gikc6t5"]
+[gd_scene load_steps=14 format=4 uid="uid://gbr34gikc6t5"]
 
 [ext_resource type="Script" path="res://scenes/arena/Arena.cs" id="1_4aywj"]
 [ext_resource type="TileSet" uid="uid://yl61550lylpr" path="res://scenes/arena/tileset.tres" id="2_t3xaw"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://components/PlayArea.cs" id="4_wa1fd"]
 [ext_resource type="Script" path="res://components/TileHighLighter.cs" id="6_4tnkl"]
 [ext_resource type="PackedScene" uid="uid://clme0tknt3sej" path="res://scenes/Unit/Unit.tscn" id="7_qgm8m"]
-[ext_resource type="Resource" uid="uid://c1ndoehfbue4s" path="res://data/units/lucius.tres" id="8_lkpa2"]
+[ext_resource type="Resource" uid="uid://bc3o5xvl8s3f6" path="res://data/units/Robin.tres" id="7_sx6lf"]
 [ext_resource type="Script" path="res://components/UnitMover.cs" id="8_y0rk8"]
 [ext_resource type="Script" path="res://components/UnitSpawner.cs" id="10_mnu4r"]
 
@@ -85,7 +85,7 @@ script = ExtResource("4_exreg")
 Size = Vector2i(4, 7)
 
 [node name="Unit2" parent="GameArea/ArenaUnitGrid" instance=ExtResource("7_qgm8m")]
-stats = ExtResource("8_lkpa2")
+stats = ExtResource("7_sx6lf")
 
 [node name="TileHighlighter" type="Node" parent="GameArea" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
