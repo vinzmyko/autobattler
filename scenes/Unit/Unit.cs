@@ -9,7 +9,7 @@ public partial class Unit : Area2D
     public UnitStats stats
     { 
         get => _stats;
-        private set => _stats = value;
+        set => _stats = value;
     }
 
     public async Task UpdateStatsAsync(UnitStats value)
