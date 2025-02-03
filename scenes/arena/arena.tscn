@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://clme0tknt3sej" path="res://scenes/Unit/Unit.tscn" id="7_qgm8m"]
 [ext_resource type="Resource" uid="uid://c1ndoehfbue4s" path="res://data/units/lucius.tres" id="8_lkpa2"]
 [ext_resource type="Script" path="res://components/UnitMover.cs" id="8_y0rk8"]
+[ext_resource type="Script" path="res://components/UnitSpawner.cs" id="10_mnu4r"]
 
 [sub_resource type="Curve" id="Curve_2vywm"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.194313, 1), 0.0, 0.0, 0, 0, Vector2(0.85782, 0.989011), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -122,3 +123,8 @@ Tile = Vector2i(3, 0)
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("PlayAreas")]
 script = ExtResource("8_y0rk8")
 PlayAreas = [NodePath("../GameArea"), NodePath("../Bench")]
+
+[node name="UnitSpawner" type="Node" parent="." node_paths=PackedStringArray("GameArea", "Bench")]
+script = ExtResource("10_mnu4r")
+GameArea = NodePath("../GameArea")
+Bench = NodePath("../Bench")
