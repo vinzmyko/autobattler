@@ -8,12 +8,15 @@ public partial class Arena : Node2D
 
     public UnitMover UnitMoverService;
     public UnitSpawner UnitSpawnerService;
+    public SellPortal SellPortalService;
 
     public override void _Ready()
     {
         UnitMoverService = GetNode<UnitMover>("UnitMover");
         UnitSpawnerService = GetNode<UnitSpawner>("UnitSpawner");
+        SellPortalService = GetNode<SellPortal>("SellPortal");
 
         UnitSpawnerService.UnitSpawned += UnitMoverService.SetupUnit;
+        UnitSpawnerService.UnitSpawned += SellPortalService.SetupUnit;
     }
 }
