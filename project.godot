@@ -28,6 +28,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="AutoBattler"
 
+[gui]
+
+theme/custom="res://assets/theme/game_theme.tres"
+
 [input]
 
 select={
