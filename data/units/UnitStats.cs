@@ -36,6 +36,16 @@ public partial class UnitStats : Resource
     [ExportCategory("Visuals")]
     [Export] public Vector2I SkinCoordinates { get; set; }
 
+    public int GetCombinedUnitCount()
+    {
+        return (int)Math.Pow(3, _tier - 1);
+    }
+
+    public int GetGoldValue()
+    {
+        return (GoldCost * GetCombinedUnitCount()) - 1;
+    }
+
     public override string ToString()
     {
         return Name;

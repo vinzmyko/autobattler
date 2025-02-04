@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 public partial class Unit : Area2D
 {
+    [Signal] public delegate void QuickSellPressedEventHandler();
+
     private UnitStats _stats;
 
     [Export]
@@ -34,6 +36,8 @@ public partial class Unit : Area2D
     ProgressBar health_bar;
     ProgressBar mana_bar;
 
+    bool IsHovered = false;
+
     public override async void _Ready()
     {
         MouseEntered += OnMouseEntered;
@@ -50,6 +54,14 @@ public partial class Unit : Area2D
         {
             await UpdateStatsAsync(stats);
         }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!IsHovered) return;
+
+        if (@event.IsActionPressed("QuickSell"))
+            EmitSignal(SignalName.QuickSellPressed);
     }
 
     private void OnDragStarted()
@@ -74,6 +86,7 @@ public partial class Unit : Area2D
 
         if ((DragAndDropComponent as DragAndDrop)._dragging) return;
 
+        IsHovered = true;
         (OutlineHighlighterComponent as OutlineHighlighter).SetHighlight();
         ZIndex = 1;
     }
@@ -83,6 +96,7 @@ public partial class Unit : Area2D
 
         if ((DragAndDropComponent as DragAndDrop)._dragging) return;
 
+        IsHovered = false;
         (OutlineHighlighterComponent as OutlineHighlighter).ClearHighlight();
         ZIndex = 0;
     }
