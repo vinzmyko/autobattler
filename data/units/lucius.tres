@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_4trvh")
 Name = "Lucius"
-RarityType = 3
+RarityType = 4
 GoldCost = 5
 Tier = 1
 SkinCoordinates = Vector2i(1, 4)

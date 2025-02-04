@@ -22,7 +22,7 @@ public partial class UnitStats : Resource
     [Export] public string Name { get; set; } = "";  
     [ExportCategory("Data")]
     [Export] public Rarity RarityType { get; set; }  
-    [Export(PropertyHint.Range, "1, 5")] public int GoldCost { get; set; } 
+    [Export(PropertyHint.Range, "1, 5")] public int GoldCost { get; set; } = 1;
     private int _tier = 1;
     [Export(PropertyHint.Range, "1, 3")] public int Tier
     {
@@ -43,6 +43,9 @@ public partial class UnitStats : Resource
 
     public int GetGoldValue()
     {
+        if (GetCombinedUnitCount() == 1)
+            return GoldCost;
+        
         return (GoldCost * GetCombinedUnitCount()) - 1;
     }
 
