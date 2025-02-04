@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_pi3fv")
-name = "Robin"
-rarity = 0
-gold_cost = 0
-skin_coordinates = Vector2i(2, 0)
+Name = "Robin"
+RarityType = 0
+GoldCost = 3
+Tier = 1
+SkinCoordinates = Vector2i(2, 0)

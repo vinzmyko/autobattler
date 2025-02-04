@@ -19,8 +19,8 @@ public partial class Unit : Area2D
         if (value == null) return;
         if (!IsNodeReady()) await ToSignal(this, "ready");
         Vector2 pos = new Vector2(
-            stats.skin_coordinates.X * Arena.CELL_SIZE.X,
-            stats.skin_coordinates.Y * Arena.CELL_SIZE.Y
+            stats.SkinCoordinates.X * Arena.CELL_SIZE.X,
+            stats.SkinCoordinates.Y * Arena.CELL_SIZE.Y
         );
         Vector2 size = new Vector2(32, 32);
         skin.SetRegionRect(new Rect2(pos, size));
