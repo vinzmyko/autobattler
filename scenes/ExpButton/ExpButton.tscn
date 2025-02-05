@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxxin8ej7eeex"]
+
+[ext_resource type="StyleBox" uid="uid://5qdjlavnhcfk" path="res://assets/theme/shop_button_hover.tres" id="1_06lkb"]
+[ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="2_4taf0"]
+[ext_resource type="StyleBox" uid="uid://c3ias4kwkl52j" path="res://assets/theme/shop_button_normal.tres" id="3_p5roa"]
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="4_7h2wd"]
+[ext_resource type="Script" path="res://scenes/ExpButton/ExpButton.cs" id="4_82psj"]
+[ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="5_7qqve"]
+[ext_resource type="Resource" uid="uid://bhh0q07nnuxrn" path="res://data/Player/PlayerStats.tres" id="5_70oa8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4lfsl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejw32"]
+font = ExtResource("4_7h2wd")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="ExpButton" type="Button"]
+custom_minimum_size = Vector2(30, 30)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4lfsl")
+theme_override_styles/hover = ExtResource("1_06lkb")
+theme_override_styles/pressed = ExtResource("2_4taf0")
+theme_override_styles/normal = ExtResource("3_p5roa")
+script = ExtResource("4_82psj")
+PlayerStats = ExtResource("5_70oa8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ExpLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "+Exp"
+label_settings = SubResource("LabelSettings_ejw32")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4
+"
+label_settings = SubResource("LabelSettings_ejw32")
+horizontal_alignment = 1
+
+[node name="GoldIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_7qqve")
+stretch_mode = 5
