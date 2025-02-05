@@ -3,6 +3,19 @@ using Godot;
 [GlobalClass]
 public partial class PlayerStats : Resource
 {
+    public static readonly Godot.Collections.Dictionary<int, int> EXP_REQUIREMENTS = new Godot.Collections.Dictionary<int, int>
+    {
+        { 1, 0 },
+        { 2, 2 },
+        { 3, 2 },
+        { 4, 6 },
+        { 5, 10 },
+        { 6, 20 },
+        { 7, 36 },
+        { 8, 48 },
+        { 9, 76 },
+        { 10, 76 }
+    };
     private int _gold = 0;
     [Export(PropertyHint.Range, "0, 99")] public int Gold
     {
@@ -21,6 +34,24 @@ public partial class PlayerStats : Resource
         {
             _exp = value;
             EmitChanged();
+
+            if (_level == 10) return;
+
+            int expRequirement = GetCurrentExpRequirement();
+
+            while (_exp >= expRequirement && _level < 10)
+            {
+                _level += 1;
+                if (_level == 10)
+                {
+                    _exp = EXP_REQUIREMENTS[10];
+                    EmitChanged();
+                    break;
+                }
+                _exp -= expRequirement;
+                expRequirement = GetCurrentExpRequirement();
+                EmitChanged();
+            }
         }
     }
     private int _level = 1;
@@ -32,5 +63,10 @@ public partial class PlayerStats : Resource
             _level = value;
             EmitChanged();
         }
+    }
+
+    public int GetCurrentExpRequirement()
+    {
+        return EXP_REQUIREMENTS[_level + 1];
     }
 }
