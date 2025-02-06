@@ -6,7 +6,10 @@ public partial class Shop : VBoxContainer
 {
     [Signal] public delegate void UnitBoughtEventHandler(UnitStats unit);
 
+    public static readonly PackedScene UNIT_CARD = GD.Load<PackedScene>("res://scenes/UnitCard/UnitCard.tscn");
+
     [Export] public PlayerStats PlayerStats { get; private set; }
+    [Export] public UnitPool UnitPool { get; private set; }
 
     public VBoxContainer ShopCards => GetNode<VBoxContainer>("%ShopCards");
     public Button RerollButton => GetNode<Button>("%RerollButton");
@@ -15,9 +18,24 @@ public partial class Shop : VBoxContainer
     {
         RerollButton.Pressed += OnRerollButtonPressed;
 
+        UnitPool.GenerateUnitPool();
+
+        foreach (Node child in ShopCards.GetChildren())
+        {
+            child.QueueFree();
+        }
+
+    }
+
+
+    private void PutBackRemainingToPool()
+    {
         foreach (UnitCard unitCard in ShopCards.GetChildren().Cast<UnitCard>())
         {
-            unitCard.UnitBought += OnUnitBought;
+            if (!unitCard.Bought)
+                UnitPool.AddUnit(unitCard.UnitStats);
+            
+            unitCard.QueueFree();
         }
     }
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://2mq3fg2m4dbc"]
+[gd_scene load_steps=9 format=3 uid="uid://2mq3fg2m4dbc"]
 
 [ext_resource type="PackedScene" uid="uid://bm8s6mdddww3v" path="res://scenes/GoldDisplay/GoldDisplay.tscn" id="1_klao8"]
 [ext_resource type="Script" path="res://scenes/Shop/Shop.cs" id="1_oykbv"]
 [ext_resource type="Resource" uid="uid://bhh0q07nnuxrn" path="res://data/Player/PlayerStats.tres" id="2_b56qt"]
 [ext_resource type="PackedScene" uid="uid://6l7bda8c3qc7" path="res://scenes/UnitCard/UnitCard.tscn" id="2_nh77v"]
+[ext_resource type="Resource" uid="uid://cuo3siqkhn2n4" path="res://data/UnitPool/UnitPool.tres" id="3_0aue5"]
 [ext_resource type="PackedScene" uid="uid://cxxin8ej7eeex" path="res://scenes/ExpButton/ExpButton.tscn" id="3_t0nry"]
 [ext_resource type="PackedScene" uid="uid://xtca0we1y44h" path="res://scenes/RerollButton/RerollButton.tscn" id="4_v6wgk"]
 [ext_resource type="PackedScene" uid="uid://cumbgy2b3uddr" path="res://scenes/ExpTracker/ExpTracker.tscn" id="5_rlaxx"]
@@ -20,6 +21,7 @@ grow_horizontal = 0
 theme_override_constants/separation = 14
 script = ExtResource("1_oykbv")
 PlayerStats = ExtResource("2_b56qt")
+UnitPool = ExtResource("3_0aue5")
 
 [node name="Top" type="HBoxContainer" parent="."]
 layout_mode = 2

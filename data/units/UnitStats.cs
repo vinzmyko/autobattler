@@ -11,11 +11,11 @@ public partial class UnitStats : Resource
 
     public static Color GetRarityColor(Rarity rarity) => rarity switch
     {
-        Rarity.COMMON => new Color("#124a2e"),
-        Rarity.UNCOMMON => new Color("#1c527c"),
-        Rarity.RARE => new Color("#ab0974"),
-        Rarity.EPIC => new Color("#6a1b9a"),
-        Rarity.LEGENDARY => new Color("#ea940b"),
+        Rarity.COMMON => new Color("#6B7280"),      
+        Rarity.UNCOMMON => new Color("#3B82F6"),    
+        Rarity.RARE => new Color("#10B981"),        
+        Rarity.EPIC => new Color("#A855F7"),        
+        Rarity.LEGENDARY => new Color("#F59E0B"),   
         _ => throw new ArgumentException("Invalid rarity")
     };
 
@@ -33,6 +33,7 @@ public partial class UnitStats : Resource
             EmitChanged();
         }
     }
+    [Export] public int PoolCount = 5;
     [ExportCategory("Visuals")]
     [Export] public Vector2I SkinCoordinates { get; set; }
 

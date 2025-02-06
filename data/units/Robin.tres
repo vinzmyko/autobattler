@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_pi3fv")
 Name = "Robin"
-RarityType = 3
+RarityType = 2
 GoldCost = 3
 Tier = 1
+PoolCount = 5
 SkinCoordinates = Vector2i(2, 0)

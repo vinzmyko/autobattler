@@ -1,9 +1,10 @@
 using Godot;
+using Godot.NativeInterop;
 
 [GlobalClass]
 public partial class PlayerStats : Resource
 {
-    public static readonly Godot.Collections.Dictionary<int, int> EXP_REQUIREMENTS = new Godot.Collections.Dictionary<int, int>
+    public static readonly Godot.Collections.Dictionary<int, int> EXP_REQUIREMENTS = new()
     {
         { 1, 0 },
         { 2, 2 },
@@ -16,6 +17,35 @@ public partial class PlayerStats : Resource
         { 9, 76 },
         { 10, 76 }
     };
+    public static readonly Godot.Collections.Dictionary<int, Godot.Collections.Array<UnitStats.Rarity>> ROLL_RARITIES = new()
+    {
+        { 1, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON } },
+        { 2, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON } },
+        { 3, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON } },
+        { 4, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE } },
+        { 5, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC } },
+        { 6, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC } },
+        { 7, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC, UnitStats.Rarity.LEGENDARY } },
+        { 8, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC, UnitStats.Rarity.LEGENDARY } },
+        { 9, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC, UnitStats.Rarity.LEGENDARY } },
+        { 10, new Godot.Collections.Array<UnitStats.Rarity> { UnitStats.Rarity.COMMON, UnitStats.Rarity.UNCOMMON, UnitStats.Rarity.RARE, UnitStats.Rarity.EPIC, UnitStats.Rarity.LEGENDARY } }
+    };
+
+    public static readonly Godot.Collections.Dictionary<int, float[]> ROLL_CHANCE = new()
+    {
+        { 1, new float[] { 1.0f } },                                   
+        { 2, new float[] { 1.0f } },                                   
+        { 3, new float[] { 0.75f, 0.25f } },                           
+        { 4, new float[] { 0.60f, 0.30f, 0.10f } },                    
+        { 5, new float[] { 0.60f, 0.30f, 0.10f } },                    
+        { 6, new float[] { 0.60f, 0.30f, 0.10f } },                    
+        { 7, new float[] { 0.40f, 0.35f, 0.20f, 0.05f } },             
+        { 8, new float[] { 0.40f, 0.35f, 0.20f, 0.05f } },             
+        { 9, new float[] { 0.40f, 0.35f, 0.20f, 0.05f } },             
+        { 10, new float[] { 0.40f, 0.35f, 0.20f, 0.05f } },            
+    };
+
+
     private int _gold = 0;
     [Export(PropertyHint.Range, "0, 99")] public int Gold
     {
@@ -63,6 +93,16 @@ public partial class PlayerStats : Resource
             _level = value;
             EmitChanged();
         }
+    }
+
+    public UnitStats.Rarity GetRandomRarityForLevel()
+    {
+        var rng = new RandomNumberGenerator();
+        var array = ROLL_RARITIES[_level];
+        
+        int selectedIndex = (int)rng.RandWeighted(ROLL_CHANCE[_level]);
+
+        return array[selectedIndex];
     }
 
     public int GetCurrentExpRequirement()

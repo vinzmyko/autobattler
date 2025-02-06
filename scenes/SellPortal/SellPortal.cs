@@ -5,6 +5,7 @@ public partial class SellPortal : Area2D
 {
     [ExportCategory("Exports")]
     [Export] public PlayerStats PlayerStats;
+    [Export] public UnitPool UnitPool { get; private set; }
     public OutlineHighlighter OutlineHighlighter;
     
     public HBoxContainer Gold;
@@ -37,9 +38,7 @@ public partial class SellPortal : Area2D
     private void SellUnit(Unit unit)
     {
         PlayerStats.Gold += unit.stats.GetGoldValue();
-        // TODO: Give items back to item pool
-        // TODO: Put units back into pool
-        GD.Print(PlayerStats.Gold);
+        UnitPool.AddUnit(unit.stats);
 
         unit.QueueFree();
     }

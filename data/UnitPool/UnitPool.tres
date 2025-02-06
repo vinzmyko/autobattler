@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitPool" load_steps=5 format=3 uid="uid://cuo3siqkhn2n4"]
+
+[ext_resource type="Resource" uid="uid://cl7gdbwqh5vv2" path="res://data/units/bjornn.tres" id="1_qieg8"]
+[ext_resource type="Script" path="res://data/UnitPool/UnitPool.cs" id="1_w7hvm"]
+[ext_resource type="Resource" uid="uid://bc3o5xvl8s3f6" path="res://data/units/Robin.tres" id="2_lx6ex"]
+[ext_resource type="Resource" uid="uid://c1ndoehfbue4s" path="res://data/units/lucius.tres" id="3_jyhv1"]
+
+[resource]
+script = ExtResource("1_w7hvm")
+AvailableUnits = [ExtResource("1_qieg8"), ExtResource("2_lx6ex"), ExtResource("3_jyhv1")]
