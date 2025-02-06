@@ -38,7 +38,7 @@ public partial class UnitCard : Button
     public StyleBoxFlat BorderStyleBox => Border.GetThemeStylebox("panel") as StyleBoxFlat;
     public StyleBoxFlat BottomStyleBox => Bottom.GetThemeStylebox("panel") as StyleBoxFlat;
 
-    private bool _bought = false;
+    public bool Bought = false;
     private Color _borderColour;
 
         private async Task SetUnitStatsAsync(UnitStats value)
@@ -53,7 +53,7 @@ public partial class UnitCard : Button
         {
             EmptyPlaceHolder.Show();
             Disabled = true;
-            _bought = true;
+            Bought = true;
             return;
         }
 
@@ -86,13 +86,6 @@ public partial class UnitCard : Button
 
         PlayerStats.Changed += OnPlayerStatsChanged;
         OnPlayerStatsChanged();
-
-        // Test Code
-        UnitBought += (unit) => 
-        {
-            GD.Print($"Bought Unit: {unit}");
-            GD.Print($"Gold: {PlayerStats.Gold}");
-        };
     }
 
     private void OnPlayerStatsChanged()
@@ -102,7 +95,7 @@ public partial class UnitCard : Button
         bool _hasEnoughGold = PlayerStats.Gold >= UnitStats.GoldCost;
         Disabled = !_hasEnoughGold;
 
-        if (_hasEnoughGold || _bought)
+        if (_hasEnoughGold || Bought)
         {
             Modulate = new Color(Color.FromHtml("#ffffff"), 1.0f);
         }
@@ -127,9 +120,9 @@ public partial class UnitCard : Button
 
     private void OnUnitCardPressed()
     {
-        if (_bought) return;
+        if (Bought) return;
 
-        _bought = true;
+        Bought = true;
         EmptyPlaceHolder.Show();
         PlayerStats.Gold -= UnitStats.GoldCost;
         EmitSignal(SignalName.UnitBought, UnitStats);
