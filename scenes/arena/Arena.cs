@@ -9,6 +9,7 @@ public partial class Arena : Node2D
     public UnitMover UnitMoverService;
     public UnitSpawner UnitSpawnerService;
     public SellPortal SellPortalService;
+    public Shop ShopService => GetNode<Shop>("%Shop");
 
     public override void _Ready()
     {
@@ -18,5 +19,6 @@ public partial class Arena : Node2D
 
         UnitSpawnerService.UnitSpawned += UnitMoverService.SetupUnit;
         UnitSpawnerService.UnitSpawned += SellPortalService.SetupUnit;
+        ShopService.UnitBought += UnitSpawnerService.SpawnUnit;
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://gbr34gikc6t5"]
+[gd_scene load_steps=14 format=4 uid="uid://gbr34gikc6t5"]
 
 [ext_resource type="Script" path="res://scenes/arena/Arena.cs" id="1_4aywj"]
 [ext_resource type="TileSet" uid="uid://yl61550lylpr" path="res://scenes/arena/tileset.tres" id="2_t3xaw"]
@@ -6,12 +6,9 @@
 [ext_resource type="Script" path="res://components/UnitGrid.cs" id="4_exreg"]
 [ext_resource type="Script" path="res://components/PlayArea.cs" id="4_wa1fd"]
 [ext_resource type="Script" path="res://components/TileHighLighter.cs" id="6_4tnkl"]
-[ext_resource type="PackedScene" uid="uid://clme0tknt3sej" path="res://scenes/Unit/Unit.tscn" id="7_qgm8m"]
-[ext_resource type="Resource" uid="uid://bc3o5xvl8s3f6" path="res://data/units/Robin.tres" id="7_sx6lf"]
 [ext_resource type="Script" path="res://components/UnitMover.cs" id="8_y0rk8"]
 [ext_resource type="Script" path="res://components/UnitSpawner.cs" id="10_mnu4r"]
 [ext_resource type="PackedScene" uid="uid://rm1cyl1tia4f" path="res://scenes/SellPortal/SellPortal.tscn" id="11_fgyqn"]
-[ext_resource type="Resource" uid="uid://bhh0q07nnuxrn" path="res://data/Player/PlayerStats.tres" id="12_5dxv8"]
 [ext_resource type="PackedScene" uid="uid://2mq3fg2m4dbc" path="res://scenes/Shop/Shop.tscn" id="13_xkwna"]
 
 [sub_resource type="Curve" id="Curve_2vywm"]
@@ -87,9 +84,6 @@ tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_exreg")
 Size = Vector2i(4, 7)
 
-[node name="Unit2" parent="GameArea/ArenaUnitGrid" instance=ExtResource("7_qgm8m")]
-stats = ExtResource("7_sx6lf")
-
 [node name="TileHighlighter" type="Node" parent="GameArea" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
 Enabled = false
@@ -114,8 +108,6 @@ tile_set = ExtResource("2_t3xaw")
 script = ExtResource("4_exreg")
 Size = Vector2i(10, 1)
 
-[node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("7_qgm8m")]
-
 [node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
 Enabled = false
@@ -134,8 +126,8 @@ Bench = NodePath("../Bench")
 
 [node name="SellPortal" parent="." instance=ExtResource("11_fgyqn")]
 position = Vector2(80, 288)
-PlayerStats = ExtResource("12_5dxv8")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Shop" parent="UI" instance=ExtResource("13_xkwna")]
+unique_name_in_owner = true
