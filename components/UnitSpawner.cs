@@ -11,14 +11,7 @@ public partial class UnitSpawner : Node
 
     public override void _Ready()
     {
-        UnitStats Robin = GD.Load<UnitStats>("res://data/units/Robin.tres");
-        Tween tween = CreateTween();
 
-        for(int i = 0; i < 15; i++)
-        {
-            tween.TweenCallback(Callable.From(() => SpawnUnit(Robin)));
-            tween.TweenInterval(0.5);
-        }
     }
 
     private PlayArea GetFirstAvailableArea()
