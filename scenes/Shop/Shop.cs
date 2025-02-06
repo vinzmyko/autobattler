@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Godot;
 
@@ -25,8 +24,20 @@ public partial class Shop : VBoxContainer
             child.QueueFree();
         }
 
+        RollUnits();
     }
 
+    private void RollUnits()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            UnitStats.Rarity rarity = PlayerStats.GetRandomRarityForLevel();
+            UnitCard newCard = UNIT_CARD.Instantiate<UnitCard>();
+            newCard.UnitStats = UnitPool.GetRandomUnitByRarity(rarity);
+            newCard.UnitBought += OnUnitBought;
+            ShopCards.AddChild(newCard);
+        }
+    }
 
     private void PutBackRemainingToPool()
     {
@@ -46,6 +57,7 @@ public partial class Shop : VBoxContainer
 
     private void OnRerollButtonPressed()
     {
-        GD.Print("Rerolled units to new ones");
+        PutBackRemainingToPool();
+        RollUnits();
     }
 }
