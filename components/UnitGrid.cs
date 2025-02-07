@@ -24,13 +24,19 @@ public partial class UnitGrid : Node
     public void AddUnit(Vector2I tile, Node unit)
     {
         Units[tile] = unit;
+        unit.TreeExited += () => {
+            if (unit.IsQueuedForDeletion())
+            {
+                Units[tile] = null;
+                EmitSignal(SignalName.UnitGridChanged);
+            }
+        };
         EmitSignal(SignalName.UnitGridChanged);
     }
 
     public void RemoveUnit(Vector2I tile)
     {
         Node unit = Units[tile];
-
         if (unit == null) return;
 
         Units[tile] = null;
@@ -63,13 +69,13 @@ public partial class UnitGrid : Node
 
     public Godot.Collections.Array<Unit> GetAllUnits()
     {
-        Godot.Collections.Array<Unit> numberOfUnits = new Godot.Collections.Array<Unit>();
+        Godot.Collections.Array<Unit> numberOfUnits = new();
         
         foreach (var unit in Units)
         {
             if (unit.Value != null)
             {
-                numberOfUnits.Add((unit.Value) as Unit);
+                numberOfUnits.Add(unit.Value as Unit);
             }
         }
 
