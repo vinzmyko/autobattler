@@ -82,7 +82,7 @@ tile_set = ExtResource("2_t3xaw")
 
 [node name="ArenaUnitGrid" type="Node2D" parent="GameArea"]
 script = ExtResource("4_exreg")
-Size = Vector2i(4, 7)
+Size = Vector2i(10, 7)
 
 [node name="TileHighlighter" type="Node" parent="GameArea" node_paths=PackedStringArray("AreaService", "HighlightLayer")]
 script = ExtResource("6_4tnkl")
